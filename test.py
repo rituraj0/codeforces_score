@@ -27,5 +27,10 @@ print( js["status"]);
 #check S-Ok , then go 
 
 for sub in js["result"]:
-   print( sub["id"])
+   print( sub["id"] , sub["contestId"] , sub["creationTimeSeconds"], sub["problem"]["contestId"] ,sub["problem"]["index"])
 
+
+# contestId
+# creationTimeSeconds
+
+# "problem" contestId":494 index
