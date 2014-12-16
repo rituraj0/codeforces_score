@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import requests
 # Create your views here.
 def score(request):
-    return HttpResponse("Hello, world. You're at the score's score");
+    r = requests.get('http://codeforces.com/api/user.info?handles=DmitriyH;Fefer_Ivan')
+    return HttpResponse(r.json());
