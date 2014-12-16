@@ -1,80 +1,80 @@
-import urllib.request
-import json
-import requests
-import datetime
+    import urllib.request
+    import json
+    import requests
+    import datetime
 
-def is_json(myjson):
-  try:
-    json_object = json.loads(myjson.read())
-  except:
-    return False
-  return True
+    def is_json(myjson):
+      try:
+        json_object = json.loads(myjson.read())
+      except:
+        return False
+      return True
 
-url0="http://codeforces.com/api/user.rating?handle=rituraj";
+    url0="http://codeforces.com/api/user.rating?handle=rituraj";
 
-url="http://codeforces.com/api/user.status?handle=rituraj&from=1&count=10";
-
-
-req = requests.get(url)
-
-js= req.json();
-
-print( js["status"]);
+    url="http://codeforces.com/api/user.status?handle=rituraj&from=1&count=10";
 
 
-#print( js["result"]);
+    req = requests.get(url)
+
+    js= req.json();
+
+    print( js["status"]);
 
 
-#check S-Ok , then go
+    #print( js["result"]);
 
 
-dict={}
+    #check S-Ok , then go
 
-req_time = "2014-12-16";
-total_point = 0;
 
-ans_string = req_time;
+    dict={}
 
-for sub in reversed(js["result"]):
-  
-   if( (sub["problem"]["contestId"] , sub["problem"]["index"] ) in dict ):
-       continue;
+    req_time = "2014-12-16";
+    total_point = 0;
 
-   localseconds = sub["creationTimeSeconds"] #+  gives right time
-   
-   curr_time = datetime.datetime.fromtimestamp(localseconds).strftime('%Y-%m-%d');
+    ans_string = req_time;
 
-   if( curr_time != req_time ):
-       continue;
+    for sub in reversed(js["result"]):
       
-   print( sub["id"] , sub["contestId"] , sub["creationTimeSeconds"], sub["problem"]["contestId"] ,sub["problem"]["index"])
+       if( (sub["problem"]["contestId"] , sub["problem"]["index"] ) in dict ):
+           continue;
 
-   dict[ (sub["problem"]["contestId"] , sub["problem"]["index"] ) ] = True;  
+       localseconds = sub["creationTimeSeconds"] #+  gives right time
+       
+       curr_time = datetime.datetime.fromtimestamp(localseconds).strftime('%Y-%m-%d');
 
-   curr_point=0;
+       if( curr_time != req_time ):
+           continue;
+          
+       print( sub["id"] , sub["contestId"] , sub["creationTimeSeconds"], sub["problem"]["contestId"] ,sub["problem"]["index"])
 
-   if( sub["problem"]["index"] == "A" ):
-       curr_point = 1;
-   elif( sub["problem"]["index"] == "B"):
-       curr_point = 2;
-   elif( sub["problem"]["index"] == "C"):
-       curr_point = 5;
-   elif( sub["problem"]["index"] == "D"):
-       curr_point = 10;
-   elif( sub["problem"]["index"] == "E"):
-       curr_point = 15;    
+       dict[ (sub["problem"]["contestId"] , sub["problem"]["index"] ) ] = True;  
 
-   total_point = total_point + curr_point;
+       curr_point=0;
 
-   ans_string = ans_string + "\n" + str(sub["problem"]["contestId"]) + "   " + str(sub["problem"]["index"]) + "   " + str(curr_point);
+       if( sub["problem"]["index"] == "A" ):
+           curr_point = 1;
+       elif( sub["problem"]["index"] == "B"):
+           curr_point = 2;
+       elif( sub["problem"]["index"] == "C"):
+           curr_point = 5;
+       elif( sub["problem"]["index"] == "D"):
+           curr_point = 10;
+       elif( sub["problem"]["index"] == "E"):
+           curr_point = 15;    
 
-print( total_point) ;
+       total_point = total_point + curr_point;
 
-ans_string = ans_string + "\n" + " total point is " + str(total_point);
+       ans_string = ans_string + "\n" + str(sub["problem"]["contestId"]) + "   " + str(sub["problem"]["index"]) + "   " + str(curr_point);
 
-print( ans_string);
+    print( total_point) ;
 
-# contestId
-# creationTimeSeconds
+    ans_string = ans_string + "\n" + " total point is " + str(total_point);
 
-# "problem" contestId":494 index
+    print( ans_string);
+
+    # contestId
+    # creationTimeSeconds
+
+    # "problem" contestId":494 index
