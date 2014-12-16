@@ -25,12 +25,46 @@ print( js["status"]);
 #print( js["result"]);
 
 
-#check S-Ok , then go 
+#check S-Ok , then go
 
-for sub in js["result"]:
+
+dict={}
+
+req_time = "2014-12-16";
+total_point = 0;
+
+for sub in reversed(js["result"]):
+  
+   if( (sub["problem"]["contestId"] , sub["problem"]["index"] ) in dict ):
+       continue;
+
+   localseconds = sub["creationTimeSeconds"] #+  gives right time
+   
+   curr_time = datetime.datetime.fromtimestamp(localseconds).strftime('%Y-%m-%d');
+
+   if( curr_time != req_time ):
+       continue;
+      
    print( sub["id"] , sub["contestId"] , sub["creationTimeSeconds"], sub["problem"]["contestId"] ,sub["problem"]["index"])
-   localseconds = sub["creationTimeSeconds"] +  19800; # convert to local IST 
-   print( datetime.datetime.fromtimestamp(localseconds).strftime('%Y-%m-%d %H:%M:%S') )
+
+   dict[ (sub["problem"]["contestId"] , sub["problem"]["index"] ) ] = True;  
+
+   curr_point=0;
+
+   if( sub["problem"]["index"] == "A" ):
+       curr_point = 1;
+   elif( sub["problem"]["index"] == "B"):
+       curr_point = 2;
+   elif( sub["problem"]["index"] == "C"):
+       curr_point = 5;
+   elif( sub["problem"]["index"] == "D"):
+       curr_point = 10;
+   elif( sub["problem"]["index"] == "E"):
+       curr_point = 15;    
+
+   total_point = total_point + curr_point;
+
+print( total_point) ;
 
 # contestId
 # creationTimeSeconds
