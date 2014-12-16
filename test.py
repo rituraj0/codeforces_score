@@ -1,5 +1,6 @@
 import urllib.request
 import json
+import requests
 
 def is_json(myjson):
   try:
@@ -10,7 +11,13 @@ def is_json(myjson):
 
 url="http://codeforces.com/api/user.rating?handle=rituraj";
 
+req = urllib.request.urlopen(url).read();
 
+r = requests.get('http://codeforces.com/api/user.info?handles=DmitriyH;Fefer_Ivan')
+
+js= r.json();
+
+print( js["status"]);
 
 
 """
