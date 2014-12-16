@@ -6,7 +6,7 @@ import json
 import datetime
 # Create your views here.
 def score(request,req_time):
-    url="http://codeforces.com/api/user.status?handle=rituraj&from=1&count=10";
+    url="http://codeforces.com/api/user.status?handle=rituraj&from=1&count=10000000";
     req = requests.get(url)
     js= req.json();
     dict={}
@@ -35,7 +35,7 @@ def score(request,req_time):
        elif( sub["problem"]["index"] == "E"):
            curr_point = 15;    
        total_point = total_point + curr_point;
-       ans_string = ans_string + "\n" + str(sub["problem"]["contestId"]) + "   " + str(sub["problem"]["index"]) + "   " + str(curr_point);
-    ans_string = ans_string + "\n" + " total point is " + str(total_point);
+       ans_string = ans_string + "__" + str(sub["problem"]["contestId"]) + "   " + str(sub["problem"]["index"]) + "   " + str(curr_point);
+    ans_string = ans_string + "__" + " total point is " + str(total_point);
 
     return HttpResponse(ans_string);
