@@ -4,4 +4,4 @@ import requests
 # Create your views here.
 def score(request):
     r = requests.get('http://codeforces.com/api/user.info?handles=DmitriyH;Fefer_Ivan')
-    return HttpResponse(r.json());
+    return HttpResponse(r.json(),content_type='application/json');
