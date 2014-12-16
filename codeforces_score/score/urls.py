@@ -3,5 +3,5 @@ from django.contrib import admin
 from score import views
 
 urlpatterns = patterns('',
-    url(r'^$', views.score, name='score'),
+    url(r'^(?P<req_time>\d*-\d*-\d*)/$', views.score, name='score'),
 )

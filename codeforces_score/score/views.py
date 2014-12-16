@@ -5,12 +5,12 @@ import urllib.request
 import json
 import datetime
 # Create your views here.
-def score(request):
+def score(request,req_time):
     url="http://codeforces.com/api/user.status?handle=rituraj&from=1&count=10";
     req = requests.get(url)
     js= req.json();
     dict={}
-    req_time = "2014-12-16";
+    #req_time = "2014-12-16";
     total_point = 0;
     
     ans_string = req_time;
