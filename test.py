@@ -11,29 +11,12 @@ def is_json(myjson):
 
 url="http://codeforces.com/api/user.rating?handle=rituraj";
 
-req = urllib.request.urlopen(url).read();
+req = requests.get(url)
 
-r = requests.get('http://codeforces.com/api/user.info?handles=DmitriyH;Fefer_Ivan')
-
-js= r.json();
+js= req.json();
 
 print( js["status"]);
 
 
-"""
-req = urllib.request.urlopen(url)
+print( js["result"]);
 
-xyz = req.readall().decode('utf-8');
-
-xyz is a string 
-#print( req["result"] );
-
-for node in xyz:
-  print(node)
-"""
-
-#print( xyz["result"] );
-
-#print(data);
-#print ( data['statistics']['dataCount'] );
-#print json[0]['title']
