@@ -1,6 +1,7 @@
 import urllib.request
 import json
 import requests
+import datetime
 
 def is_json(myjson):
   try:
@@ -28,7 +29,8 @@ print( js["status"]);
 
 for sub in js["result"]:
    print( sub["id"] , sub["contestId"] , sub["creationTimeSeconds"], sub["problem"]["contestId"] ,sub["problem"]["index"])
-
+   localseconds = sub["creationTimeSeconds"] +  19800; # convert to local IST 
+   print( datetime.datetime.fromtimestamp(localseconds).strftime('%Y-%m-%d %H:%M:%S') )
 
 # contestId
 # creationTimeSeconds
