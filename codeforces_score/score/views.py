@@ -15,6 +15,9 @@ def score(request,req_time):
     
     ans_string = req_time;
 
+    ans_list = [];
+    ans_list.append(req_time);
+
     for sub in reversed(js["result"]):      
        if( (sub["problem"]["contestId"] , sub["problem"]["index"] ) in dict ):
            continue;
@@ -35,7 +38,11 @@ def score(request,req_time):
        elif( sub["problem"]["index"] == "E"):
            curr_point = 15;    
        total_point = total_point + curr_point;
-       ans_string = ans_string + "__" + str(sub["problem"]["contestId"]) + "   " + str(sub["problem"]["index"]) + "   " + str(curr_point);
+
+       curr_string = "__" + str(sub["problem"]["contestId"]) + "_" + str(sub["problem"]["index"]) + "_" + str(curr_point);       
+       ans_string = ans_string  + curr_string;
+       ans_list.append(curr_string);
+       
     ans_string = ans_string + "__" + " total point is " + str(total_point);
 
-    return HttpResponse(ans_string);
+    return render(request, 'blog/post_list.html', {'ans_list': ans_list});
