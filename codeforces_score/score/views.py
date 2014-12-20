@@ -4,6 +4,7 @@ import requests
 import urllib.request
 import json
 import datetime
+import shelve
 # Create your views here.
 def score(request,req_time):
     url="http://codeforces.com/api/user.status?handle=rituraj&from=1&count=10000000";
@@ -45,4 +46,13 @@ def score(request,req_time):
        
     ans_string = ans_string + "__" + " total point is " + str(total_point);
 
-    return render(request, 'blog/post_list.html', {'ans_list': ans_list});
+    #insert init database
+    sh = shelve.open('test_shelf.db',writeback=True);
+
+    if( req_time in sh ):
+        ans_list.append("catched");
+    else:    
+        sh[req_time] = ans_list;
+    sh.close();
+
+    return render(request, 'files/score.html', {'ans_list': ans_list});
